@@ -1,7 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { Toaster } from "react-hot-toast";
 import { Navigate, Route, Routes } from "react-router-dom";
-import { useEffect } from "react";
 
 import AuthLayout from "./layouts/AuthLayout";
 import RootLayout from "./layouts/RootLayout";
@@ -10,17 +9,9 @@ import RegisterPage from "./pages/auth/RegisterPage";
 import HomePage from "./pages/home/HomePage";
 import NotificationPage from "./pages/notification/NotificationPage";
 import ProfilePage from "./pages/profile/ProfilePage";
-import LoadingSpinner from "./components/common/LoadingSpinner";
 
 const App = () => {
-  // Force dark mode in production
-  useEffect(() => {
-    const root = document.documentElement;
-    root.setAttribute("data-theme", "black");
-    root.classList.remove("light");
-    root.classList.add("dark");
-  }, []);
-  const { data, isLoading } = useQuery({
+  const { data } = useQuery({
     queryKey: ["authUser"],
     queryFn: async () => {
       try {
