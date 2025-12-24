@@ -7,11 +7,13 @@ const generateToken = (userId, res) => {
     expiresIn: "15d",
   });
 
+  const isProduction = config.env === "production";
+
   res.cookie("token", token, {
+    maxAge: 7 * 24 * 60 * 60 * 1000,
     httpOnly: true,
-    maxAge: 15 * 24 * 60 * 60 * 1000,
-    secure: config.env !== "development",
-    sameSite: "strict",
+    sameSite: isProduction ? "none" : "strict",
+    secure: isProduction,
   });
 };
 
